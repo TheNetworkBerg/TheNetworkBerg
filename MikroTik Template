@@ -1,0 +1,15 @@
+---
+- hosts:
+  connection: network_cli
+  gather_facts: no 
+
+  vars:
+    ansible_network_os: routeros
+    ansible_user: admin
+
+  tasks:
+  
+   - name:
+     routeros_command:
+       commands: 
+         - 
