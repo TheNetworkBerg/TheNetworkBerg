@@ -1,0 +1,23 @@
+Scripts used in Vid 1
+
+#Have Router return value on screen
+:put "Value"
+#Using find command 
+:put [find "abc" "a"]
+#Find specific object details (IP address)
+:put [/ip address get [/ip address find interface=ether1] address]
+#Check if DNS is empty
+:if ([/ip dns get server]="") do=[:put "DNS Server is Empty"]
+#Check OSPF Neighorships
+:put [:len [/routing ospf neighbor find where state!=Full]]
+:if ([:len [/routing ospf neighbor find where state!=Full]] > 0) do={
+  :put "Found a neighbor with a problem"
+} else={
+  :put "All neighbors are up!"
+#Check and configure DNS servers if Empty
+:if ([/ip dns get servers] = "") do={
+  :put "DNS was empty, updating!"
+  /ip dns set servers="1.1.1.1"
+} else={
+  :put "DNS was already configured, not changing"
+}
